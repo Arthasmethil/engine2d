@@ -17,8 +17,11 @@ class Engine2D:
         self.field = field
 
     def add_figure_in_canvas(self, shape: Shape):
-        shape.change_color(self.color)
-        self.canvas.append(shape)
+        if isinstance(shape, (Triangle, Rectangle, Circle)):
+            shape.change_color(self.color)
+            self.canvas.append(shape)
+        else:
+            raise TypeError(f"Invalid type {shape.__class__}, valid types: Triangle, Rectangle, Circle")
 
     def get_width_of_window(self):
         print(self.field.winfo_width())

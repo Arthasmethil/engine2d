@@ -3,6 +3,7 @@ import pytest
 from classes.engine import Engine2D
 from classes.figures.circle import Circle
 from classes.figures.common.point import Point
+from classes.figures.line import Line
 from classes.figures.rectangle import Rectangle
 from classes.figures.triangle import Triangle
 from constants.colors import Color
@@ -90,6 +91,17 @@ def test_draw_each_type_figure(get_engine, figures):
         engine.add_figure_in_canvas(figure)
     engine.draw()
     assert len(engine.canvas) == 0
+
+
+@pytest.mark.engine
+@pytest.mark.parametrize("figures", [[
+    Line(Point(700, 500), Point(200, 250))
+]])
+def test_add_wrong_type_figure(get_engine, figures):
+    with pytest.raises(TypeError):
+        engine = get_engine
+        for figure in figures:
+            engine.add_figure_in_canvas(figure)
 
 
 @pytest.mark.engine
